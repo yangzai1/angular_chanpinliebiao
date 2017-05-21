@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="product">
+<head>
+    <meta charset="UTF-8">
+    <title>angular的产品搜索功能</title>.
+    <link rel="stylesheet" href="bootstrap3/css/bootstrap.min.css">
+    <style>
+        .orderColor{
+            color: red;
+        }
+    </style>
+    <script src="angular/angular.js"></script>
+    <script src="app/index.js"></script>
+</head>
+<body>
+    <div ng-controller="productController" class="container">
+        <nav class="navbar navbar-default">
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                    </div>
+                </form>
+            </div>
+
+        </nav>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-click="changOrder('id')" ng-class="{dropup:order === ''}"><!-- 如果这个dropup：true 时表示降序 false时表示升序 -->
+                        产品编号
+                        <span ng-class="{orderColor:orderType ==='id'}" class="caret"></span><!-- ng-class="{orderColor:orderType ==='id'}" 这个和上面的style相关联，选中的时候变成红色 -->
+                    </th>
+                    <th ng-click="changOrder('name')">
+                        产品名称
+                        <span ng-class="{orderColor:orderType ==='id'}"  class="caret"></span>
+                    </th>
+                    <th ng-click="changOrder('price')">
+                        产品价钱
+                        <span ng-class="{orderColor:orderType ==='id'}"  class="caret"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in productData | filter:search | orderBy:order + orderType"><!-- filter:{id:search} 表示根据ID进行筛选-->
+                    <td>                                               <!-- orderBy:order + orderType这一块是用来写降序的过滤器效果 -->
+                        {{product.id}}
+                    </td>
+                    <td>
+                        {{product.name}}
+                    </td>
+                    <td>
+                        {{product.price | currency:'(RMB  ￥)'}} <!-- 给价格进行过滤 -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
